@@ -1,0 +1,21 @@
+name: Cache check
+on: [pull_request]
+
+jobs:
+
+  cache-check:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v1
+
+      - run: git checkout -b ga/temp
+
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+
+      - run: ruby .github/cache-check/main.rb "${{ secrets.GITHUB_TOKEN }}"
+
